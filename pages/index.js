@@ -1,23 +1,18 @@
-import Head from 'next/head'
-
+import Head from 'next/head';
 import Container from '@material-ui/core/Container';
-import Image from 'next/image';
+import Layout from '../components/Layout';
+
 export default function Home() {
   return (
-    <Container>
-      <Head>
-        <title>URmovies</title>
-        <link rel="icon" href="/logo.png" />
-      </Head>
+    <Layout>
+        <Head>
+          <title>URmovies | Home</title>
+        </Head>
+        <Container>
+        <p>Hola</p>
+        {[1,2,3,4,5,6,7,8,9,10,11,12,14,15,16,17,18,19,20,21,22,23].map(e=>(<p key={e} >Hola Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repellat praesentium eos minima laborum fuga nemo soluta magni. Dolor nulla, molestiae quam, laborum pariatur iusto distinctio officia labore ipsa, cum architecto?</p>))}
+      </Container>
       
-      <Image
-        src="/hero.svg"
-        alt="URmovies"
-        width={300}
-        height={100}
-        draggable={false}
-      />
-      <p>Hola</p>
-    </Container>
+    </Layout>
   )
 }
