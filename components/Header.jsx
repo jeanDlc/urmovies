@@ -16,11 +16,14 @@ function ElevationScroll(props) {
     threshold: 0,
     target: window ? window() : undefined,
   });
-
   return React.cloneElement(children, {
     elevation: trigger ? 4 : 0,
+    style:{
+      backgroundColor: trigger ? "#0f123d" : "transparent",
+    }
   });
 }
+
 const Header = () => {
     const theme = useTheme();
     const pantallaDesktop = useMediaQuery(theme.breakpoints.up('md'));

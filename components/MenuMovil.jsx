@@ -101,19 +101,19 @@ const MenuMovil = () => {
             </div>
             <Divider />
             <List>
-                <ListItem onClick={()=>linkear('/')}  button key={1}>
+                <ListItem onClick={()=>linkear('/')}  button >
                     <ListItemIcon><HomeIcon /></ListItemIcon>
                     <ListItemText primary='Home' />
                 </ListItem>
-                <ListItem button onClick={()=>linkear('/')} key={1}>
+                <ListItem button onClick={()=>linkear('/')} >
                     <ListItemIcon><MovieCreationIcon /></ListItemIcon>
                     <ListItemText primary='Movies' />
                 </ListItem>
-                <ListItem button onClick={()=>linkear('/')} key={1}>
+                <ListItem button onClick={()=>linkear('/')} >
                     <ListItemIcon><LiveTvIcon /></ListItemIcon>
                     <ListItemText primary='TV' />
                 </ListItem>
-                <ListItem button onClick={()=>linkear('/')} key={1}>
+                <ListItem button onClick={()=>linkear('/')} >
                     <ListItemIcon><CategoryIcon /></ListItemIcon>
                     <ListItemText primary='Categories' />
                 </ListItem>
