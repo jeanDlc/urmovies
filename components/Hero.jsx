@@ -37,7 +37,7 @@ const Hero = () => {
                             Your favorite Movies
                         </Typography>
                         <Typography variant="h4" component="p" align='center' gutterBottom>
-                                    Search something
+                                    Find your Movie:
                         </Typography>
                 </ThemeProvider>                
                 <Container maxWidth='sm' >
