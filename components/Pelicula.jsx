@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
     peliculaContainer:{
         padding:9,
         borderRadius:'10px',
-        backgroundColor:theme.palette.primary.light,
+        backgroundColor:theme.palette.primary.main,
     },
     imagen:{
         borderRadius:9,
@@ -52,7 +52,7 @@ const Pelicula = ({detalles}) => {
             <div className={classes.contenedorImagen} >
                 <Image
                     src={urlImagen}
-                    alt="Picture of the author"
+                    alt="Movie Photo"
                     layout='fill'
                     objectFit="cover"
                     className={classes.imagen}

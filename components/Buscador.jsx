@@ -9,7 +9,7 @@ const Buscador = () => {
     }
     return ( 
         <form onSubmit={buscar} >
-            <TextField id="buscador" fullWidth={true} type='text' label="Movies" color='secondary' variant="filled"  size='medium'
+            <TextField id="buscador" fullWidth={true} type='text' label="Movies" color='secondary' variant="outlined"  size='medium'
             InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">

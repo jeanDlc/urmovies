@@ -4,24 +4,34 @@ import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 import Link from 'next/link';
 import { makeStyles } from '@material-ui/core/styles';
-import LiveTvIcon from '@material-ui/icons/LiveTv';
 import MovieCreationIcon from '@material-ui/icons/MovieCreation';
 import CategoryIcon from '@material-ui/icons/Category';
+import StarRateIcon from '@material-ui/icons/StarRate';
+import { useRouter } from 'next/router';
 const useStyles = makeStyles(theme => ({
     enlace: {
-      color:theme.palette.secondary.light,
+        color:'white',
       fontSize:20,
       textDecoration:'none',
       display:'flex',
       gap:5,
       transition:'all .2s ease-out',
       '&:hover':{
-          color:theme.palette.secondary.main,
+          color:theme.palette.primary.light,
       },
-      alignItems:'center'
+      alignItems:'center',
+      lineHeight:1.5
     },
+    activo:{
+        //borderBottom:`2px solid ${theme.palette.secondary.light}`
+        backgroundColor:theme.palette.primary.main,
+        borderRadius:10,
+        padding:'10px 12px',
+    }
   }));
 const MenuDesktop = () => {
+    const router=useRouter();
+    
     const clases=useStyles();
     return ( 
         <Box component='nav' width='100%'>
@@ -31,7 +41,7 @@ const MenuDesktop = () => {
                         <a>
                             <Box component='h1' lineHeight={0} marginY={0} >
                                 <Image
-                                    src="/hero.svg"
+                                    src="/logoPrincipal.svg"
                                     alt="URmovies"
                                     width={300}
                                     height={80}
@@ -42,13 +52,19 @@ const MenuDesktop = () => {
                     </Link>
                     <Box component='div' display='flex' gridGap={45}>
                         <Link href='/'>
-                            <a className={clases.enlace} ><MovieCreationIcon/> <span>Movies</span></a>
+                            <a 
+                                className={`${clases.enlace} ${router.pathname=='/'? clases.activo: ''} `} 
+                            ><MovieCreationIcon/> <span>Movies</span></a>
                         </Link>
-                        <Link href='/'>
-                            <a className={clases.enlace} ><LiveTvIcon/> <span>TV</span> </a>
+                        <Link href='/ranking'>
+                            <a 
+                                className={`${clases.enlace} ${router.pathname=='/ranking'? clases.activo: ''} `} 
+                            ><StarRateIcon/> <span>Top rated</span> </a>
                         </Link>
-                        <Link href='/' >
-                            <a className={clases.enlace} ><CategoryIcon/> <span>Categories</span></a>
+                        <Link href='/categories' >
+                            <a 
+                                className={`${clases.enlace} ${router.pathname=='/categories'? clases.activo: ''} `} 
+                            ><CategoryIcon/> <span>Categories</span></a>
                         </Link>
                     </Box>
                 </Box>

@@ -6,7 +6,7 @@ const Puntaje = ({rank}) => {
     const puntaje_pelicula=rank*10;
     return ( 
         <Box position="relative" display="inline-flex">
-            <CircularProgress color='primary' variant="determinate" value={puntaje_pelicula} />
+            <CircularProgress color='secondary' variant="determinate" value={puntaje_pelicula} />
             <Box
                 top={0}
                 left={0}
@@ -17,7 +17,7 @@ const Puntaje = ({rank}) => {
                 alignItems="center"
                 justifyContent="center"
             >
-                <Typography variant="caption" component="div" color="textSecondary">{puntaje_pelicula}</Typography>
+                <Typography variant="caption" component="div" color="textPrimary">{puntaje_pelicula}</Typography>
             </Box>
         </Box>
      );
