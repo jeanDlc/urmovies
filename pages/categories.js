@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { Button, Container, Typography } from '@material-ui/core';
 import { responsiveFontSizes, ThemeProvider } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
@@ -40,6 +40,7 @@ const Categories = () => {
     const [listaIdCategorias, setListaIdCategorias] = useState([]);
     const [listaPeliculas, setListaPeliculas]=useState([]);
     const [loading, setLoading]=useState(false);
+    const [mensaje, setMensaje]=useState('');
       const handleChange = (event) => {
           if(event.target.checked){
               //si se hace check, se agregará a la lista de ids
@@ -49,18 +50,25 @@ const Categories = () => {
               setListaIdCategorias(listaIdCategorias.filter(id=>id!==event.target.id));
           }
       };
-      const buscarPorCategoria=async ()=>{
-          setLoading(true);
     
+      const buscarPorCategoria=async ()=>{
+          if(mensaje!==''){
+            setMensaje('')
+          }
+          setLoading(true);
+
           try {
             const url=`https://api.themoviedb.org/3/discover/movie?api_key=${process.env.NEXT_PUBLIC_TMDB_API}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=${listaIdCategorias.toString()}`;
             const res=await fetch(url);
             const busqueda=await res.json();
+            if(busqueda.results.length ===0){
+                setMensaje('No results');
+            }
             setLoading(false);
             setListaPeliculas(busqueda.results);
           } catch (error) {
-              console.log(error);
               setLoading(false);
+              setMensaje('Error');
           }
           
       }
@@ -69,15 +77,13 @@ const Categories = () => {
             <Container component='section' >
                 <Grid container spacing={3} alignItems='center' >
                     {!pantallaMovil? (
-                        <Grid style={{width:'100%'}} item xs={12} md={4} >
+                        <Grid item xs={12} md={4} >
                             <Box>
                                 <Image
                                     src='/logo.png'
                                     alt="Logo urmovies"
-                                    layout='responsive'
-                                    objectFit="cover"
-                                    width={100}
-                                    height={100}
+                                    width={416}
+                                    height={480}
                                 />
                             </Box>
                         </Grid>
@@ -110,7 +116,11 @@ const Categories = () => {
                         <CircularProgress color='secondary' />
                     </Box>
                 )}
-                
+                {mensaje!=='' && (
+                    <Box textAlign='center' marginTop={15}>
+                        <Typography component='p' variant='h3' gutterBottom >{mensaje} </Typography>
+                    </Box>
+                )}
                 <Box component='main' marginTop={20} >
                     <Grid container spacing={3} >
                         {listaPeliculas.map(pelicula=>(

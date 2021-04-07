@@ -5,6 +5,8 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Puntaje from './Puntaje';
 import Box from '@material-ui/core/Box';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 /**estilos************************************************************ */
 const useStyles = makeStyles((theme) => ({
     popover: {
@@ -22,6 +24,11 @@ const useStyles = makeStyles((theme) => ({
     },
     imagen:{
         borderRadius:9,
+        transition: 'opacity .3s ease-out',
+        '&:hover':{
+            cursor:'pointer',
+            opacity:0.7
+        }
     },
     contenedorImagen:{
         width:'100%',
@@ -32,6 +39,9 @@ const useStyles = makeStyles((theme) => ({
   }));
 /**componente************************************************************* */
 const Pelicula = ({detalles}) => {
+
+    const router=useRouter();
+
     /**para el popover******* */
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -47,6 +57,14 @@ const Pelicula = ({detalles}) => {
     const {title,id,overview,backdrop_path,vote_average,release_date}=detalles;
     const urlImagen=`https://image.tmdb.org/t/p/original${backdrop_path}`;
 
+    //redireccionar
+    const linkear=()=>{
+        if(!id){
+            return;
+        }
+        router.push(`/movie/${id}`);
+    }
+
     return ( 
         <div className={classes.peliculaContainer} >
             <div className={classes.contenedorImagen} >
@@ -56,19 +74,23 @@ const Pelicula = ({detalles}) => {
                     layout='fill'
                     objectFit="cover"
                     className={classes.imagen}
+                    onClick={linkear}
                 />
             </div> 
             <Box display='flex' alignItems='center' justifyContent='space-between' >
-                <Typography
-                    aria-owns={open ? 'mouse-over-popover' : undefined}
-                    aria-haspopup="true"
-                    onMouseEnter={handlePopoverOpen}
-                    onMouseLeave={handlePopoverClose}
-                    component='h3'
-                    variant='h5' gutterBottom
-                >
-                    {title}
-                </Typography>
+                <Link href={`/movie/${id}`} >
+                    <Typography
+                        aria-owns={open ? 'mouse-over-popover' : undefined}
+                        aria-haspopup="true"
+                        onMouseEnter={handlePopoverOpen}
+                        onMouseLeave={handlePopoverClose}
+                        component='h3'
+                        variant='h5' gutterBottom
+                        style={{cursor:'pointer'}}
+                    >
+                        {title}
+                    </Typography>
+                </Link>
                 <Puntaje rank={vote_average} />
             </Box>
             <Typography >{new Date(release_date).getFullYear()} </Typography>

@@ -79,13 +79,13 @@ const MenuMovil = () => {
                     </a>
                 </Link></Box>
                 <IconButton
-                    color="secondary"
+                    className={classes.colorIcono}
                     aria-label="open drawer"
                     edge="end"
                     onClick={handleDrawerOpen}
                     className={clsx(open && classes.hide)}
                 >
-                <MenuIcon />
+                <MenuIcon className={classes.colorIcono} />
             </IconButton>
             </Box>
         <Drawer
