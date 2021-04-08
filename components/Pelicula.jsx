@@ -33,13 +33,13 @@ const useStyles = makeStyles((theme) => ({
     contenedorImagen:{
         width:'100%',
         position:'relative',
-        height:'300px',
+        height:'450px',
         marginBottom:10
     }
   }));
 /**componente************************************************************* */
 const Pelicula = ({detalles}) => {
-
+    
     const router=useRouter();
 
     /**para el popover******* */
@@ -54,8 +54,8 @@ const Pelicula = ({detalles}) => {
     const open = Boolean(anchorEl);
 
     //info de la pelicula
-    const {title,id,overview,backdrop_path,vote_average,release_date}=detalles;
-    const urlImagen=`https://image.tmdb.org/t/p/original${backdrop_path}`;
+    const {title,id,overview,poster_path,vote_average,release_date}=detalles;
+    const urlImagen=`https://image.tmdb.org/t/p/original${poster_path}`;
 
     //redireccionar
     const linkear=()=>{

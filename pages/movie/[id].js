@@ -13,6 +13,7 @@ import Puntaje from '../../components/Puntaje';
 import LanguageIcon from '@material-ui/icons/Language';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
+import Companie from '../../components/Companie';
 
 const useStyles = makeStyles(theme => ({
     bg: {
@@ -34,11 +35,15 @@ const Movie = () => {
     const [dataPelicula, setDataPelicula]=useState(null);
     useEffect(()=>{
         const getDataPelicula=async (idPelicula)=>{
-            const url=` https://api.themoviedb.org/3/movie/${idPelicula}?api_key=${process.env.NEXT_PUBLIC_TMDB_API}&language=en-US`;
-            const data= await fetch(url);
-            const pelicula=await data.json();
-            setDataPelicula(pelicula);
-            console.log(pelicula)
+            try {
+                const url=` https://api.themoviedb.org/3/movie/${idPelicula}?api_key=${process.env.NEXT_PUBLIC_TMDB_API}&language=en-US`;
+                const data= await fetch(url);
+                const pelicula=await data.json();
+                setDataPelicula(pelicula);
+            } catch (error) {
+                console.log(error);
+            }
+            
         }
         if(id){
             getDataPelicula(id);
@@ -58,8 +63,9 @@ const Movie = () => {
                 objectFit="cover"
                 quality={100}
                 className={classes.bg}
+                draggable={false}
             />
-            <Box height='90vh' marginTop={5} >
+            <Box height='90vh' marginTop={pantallaDesktop? 6 : 3} >
                 <Container >
                     <Grid container spacing={3} >
                         {pantallaDesktop && (
@@ -67,7 +73,7 @@ const Movie = () => {
                                 <Box width='100%' position='relative' height='600px' >
                                     <Image
                                         src={urlImgPoster}
-                                        alt="Movie Image"
+                                        alt="Movie poster image"
                                         layout="intrinsic"
                                         width={700}
                                         height={1000}
@@ -106,8 +112,15 @@ const Movie = () => {
             {production_companies.length>0 && (
                 <Container component='section' >
                     <ThemeProvider theme={theme}>
-                        <Typography component='p' variant='h6' gutterBottom >Companies:</Typography>
-                    </ThemeProvider> 
+                        <Typography component='h4' variant='h6' gutterBottom >Companies:</Typography>
+                    </ThemeProvider>
+                    <Grid container spacing={3} style={{marginBottom:'30px'}} >
+                        {production_companies.map(comp=>(
+                            <Grid key={comp.id} item xs={12} md={6} lg={4} >
+                                <Companie detalles={comp} />
+                            </Grid>
+                        ))}
+                    </Grid>
                     
                 </Container>
             )}

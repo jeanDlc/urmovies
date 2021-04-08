@@ -13,7 +13,6 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Box from '@material-ui/core/Box';
 import Link from 'next/link';
 import Image from 'next/image';
-import HomeIcon from '@material-ui/icons/Home';
 import MovieCreationIcon from '@material-ui/icons/MovieCreation';
 import CategoryIcon from '@material-ui/icons/Category';
 import { useRouter } from 'next/router';
@@ -104,10 +103,6 @@ const MenuMovil = () => {
             </div>
             <Divider />
             <List>
-                <ListItem onClick={()=>linkear('/')}  button >
-                    <ListItemIcon><HomeIcon className={classes.colorIcono} /></ListItemIcon>
-                    <ListItemText primary='Home' />
-                </ListItem>
                 <ListItem button onClick={()=>linkear('/')} >
                     <ListItemIcon><MovieCreationIcon className={classes.colorIcono} /></ListItemIcon>
                     <ListItemText primary='Movies' />

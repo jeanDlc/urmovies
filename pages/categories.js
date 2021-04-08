@@ -124,7 +124,7 @@ const Categories = () => {
                 <Box component='main' marginTop={20} >
                     <Grid container spacing={3} >
                         {listaPeliculas.map(pelicula=>(
-                            <Grid sm={12} md={6} lg={4} item key={pelicula.id} >
+                            <Grid xs={12} md={6} lg={4} item key={pelicula.id} >
                                 <Pelicula detalles={pelicula} />
                             </Grid>
                         ))}
