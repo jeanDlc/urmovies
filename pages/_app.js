@@ -5,7 +5,7 @@ import Head from 'next/head';
 import { ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import theme from '../src/theme';
-
+import Layout from '../components/Layout';
 function MyApp({ Component, pageProps }) {
   useEffect(()=>{
      // Remove the server-side injected CSS.
@@ -22,7 +22,10 @@ function MyApp({ Component, pageProps }) {
       </Head>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <Component {...pageProps} />
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+        
       </ThemeProvider>
     </React.Fragment>
   )

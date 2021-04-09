@@ -1,34 +1,41 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+Esta es una app que consume el api de [The Movie Databate](https://www.themoviedb.org/), y sirve información acerca de muchas películas y su popularidad. No es un servicio de streaming
 
-## Getting Started
+Este es un proyecto que usa [Next.js](https://nextjs.org/) con el comando [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-First, run the development server:
+## Primeros pasos
+A correr el servidor
 
 ```bash
 npm run dev
 # or
 yarn dev
 ```
+El proyecto corre en el puerto 3000
+Abrir [http://localhost:3000](http://localhost:3000) en tu browser preferido
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## TMDB api
+Este proyecto usa el api de [TMDB](https://www.themoviedb.org/) , debes crear una cuenta y un api key. Es gratis, solo asegúrate de usar el api_key para developers
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+## Material ui
+Para el diseño, se usó [Material UI](https://material-ui.com)
+Para instalar:
+```bash
+npm install @material-ui/core
+```
+También puedes ver el proyecto de ejemplo de [Material ui con Next js](https://github.com/mui-org/material-ui/tree/master/examples/nextjs) para guiarte. Este repositorio proviene de la documentación oficial de Material ui
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+## Material ui icons
+También se utilizó los [Material icons](https://material-ui.com/components/icons/#icons)
+```bash
+npm install @material-ui/icons
+# or
+yarn add @material-ui/icons
+```
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+## Deploy en Vercel
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+El deploy se hizo en [Vercel](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Chequea la [Next.js deployment documentation](https://nextjs.org/docs/deployment) para más detalles.

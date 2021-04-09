@@ -1,20 +1,17 @@
 import React, {useEffect, useState} from 'react';
 import { useRouter } from 'next/router';
-import Layout from '../../components/Layout';
 import { Container } from '@material-ui/core';
 import Image from 'next/image';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
-import { createMuiTheme, responsiveFontSizes,ThemeProvider  } from '@material-ui/core/styles';
+import { useTheme , responsiveFontSizes,ThemeProvider  } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import Puntaje from '../../components/Puntaje';
 import LanguageIcon from '@material-ui/icons/Language';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
 import Companie from '../../components/Companie';
-
+import Head from 'next/head';
 const useStyles = makeStyles(theme => ({
     bg: {
       opacity:0.3,
@@ -22,10 +19,16 @@ const useStyles = makeStyles(theme => ({
     },
     imagen:{
         borderRadius:10
+    },
+    li:{
+        display:'inline-block',
+        marginRight:'15px',
+        textDecoration:'none',
+        listStyle:'none'
     }
   }));
 const Movie = () => {
-    let theme = createMuiTheme();
+    let theme = useTheme ();
     theme = responsiveFontSizes(theme);
     const pantallaDesktop = useMediaQuery(theme.breakpoints.up('md'));
     
@@ -33,6 +36,7 @@ const Movie = () => {
     const router=useRouter();
     const {id}=router.query;
     const [dataPelicula, setDataPelicula]=useState(null);
+    
     useEffect(()=>{
         const getDataPelicula=async (idPelicula)=>{
             try {
@@ -40,6 +44,7 @@ const Movie = () => {
                 const data= await fetch(url);
                 const pelicula=await data.json();
                 setDataPelicula(pelicula);
+                console.log(pelicula)
             } catch (error) {
                 console.log(error);
             }
@@ -54,8 +59,12 @@ const Movie = () => {
     const {backdrop_path,title,vote_average,tagline,overview,poster_path,release_date,original_language,genres,production_companies}=dataPelicula;
     const urlImagen=`https://image.tmdb.org/t/p/original/${backdrop_path}`;
     const urlImgPoster=`https://image.tmdb.org/t/p/original/${poster_path}`;
+    
     return ( 
-        <Layout>
+        <>
+            <Head>
+                <title>URmovies | Movie</title>
+            </Head>
             <Image
                 src={urlImagen}
                 alt="Logo movie"
@@ -65,7 +74,7 @@ const Movie = () => {
                 className={classes.bg}
                 draggable={false}
             />
-            <Box height='90vh' marginTop={pantallaDesktop? 6 : 3} >
+            <Box height='90vh' marginTop={pantallaDesktop? 6 : 1} >
                 <Container >
                     <Grid container spacing={3} >
                         {pantallaDesktop && (
@@ -83,28 +92,28 @@ const Movie = () => {
                             </Grid>
                         )}
                         <Grid item xs={12} md={8} >
-                            <Box component='main' position='relative' zIndex={3} >
-                                <ThemeProvider theme={theme}>
-                                    <Typography component='h2' variant='h3' >{title} </Typography> 
-                                    <Typography gutterBottom >{tagline}</Typography>
-                                    <Typography gutterBottom >{new Date(release_date).getFullYear()}</Typography>
-                                </ThemeProvider> 
-                                <Puntaje rank={vote_average} />
-                                <ThemeProvider theme={theme}>
-                                    <Typography variant='h6' gutterBottom >{overview}</Typography>
-                                </ThemeProvider> 
-                                <Box display='flex' > 
-                                    <LanguageIcon/>
-                                    <Typography >Original Language: {original_language} </Typography>
+                            <ThemeProvider theme={theme}>
+                                <Box component='main' position='relative' zIndex={3} >
+                                        <Typography component='h2' variant='h3' >{title} </Typography> 
+                                        <Typography gutterBottom >{tagline}</Typography>
+                                        {release_date!==''?(
+                                            <Typography gutterBottom >{new Date(release_date).getFullYear()}</Typography>
+                                        ) : null}
+                                    <Puntaje rank={vote_average} />
+                                    <Typography component='p' variant={pantallaDesktop? 'h6' :'body1' } gutterBottom >{overview.length>400? `${overview.slice(0,400)}...` :overview}</Typography>
+                                    <Box display='flex' > 
+                                        <LanguageIcon/>
+                                        <Typography >Original Language: {original_language} </Typography>
+                                    </Box>
+                                    <Box component='ul' display='flex' flexWrap='wrap' >
+                                        {genres.map(genero=>(
+                                            <li className={classes.li} key={genero.id} >
+                                                {genero.name}
+                                            </li>
+                                        ))}
+                                    </Box>
                                 </Box>
-                                <List component="ul" aria-label="main mailbox folders">
-                                    {genres.map(genero=>(
-                                        <ListItem key={genero.id} >
-                                            {genero.name}
-                                        </ListItem>
-                                    ))}
-                                </List>
-                            </Box>
+                            </ThemeProvider> 
                         </Grid>
                     </Grid>
                 </Container>
@@ -112,7 +121,7 @@ const Movie = () => {
             {production_companies.length>0 && (
                 <Container component='section' >
                     <ThemeProvider theme={theme}>
-                        <Typography component='h4' variant='h6' gutterBottom >Companies:</Typography>
+                        <Typography component='h3' variant='h5' gutterBottom >Companies:</Typography>
                     </ThemeProvider>
                     <Grid container spacing={3} style={{marginBottom:'30px'}} >
                         {production_companies.map(comp=>(
@@ -125,7 +134,7 @@ const Movie = () => {
                 </Container>
             )}
             
-        </Layout>
+        </>
      );
 }
  

@@ -17,6 +17,7 @@ const Companie = ({detalles}) => {
                     layout='fill'
                     objectFit='contain'
                     alt='Companie image'
+                    draggable={false}
                 />
             </Box>
             

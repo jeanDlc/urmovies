@@ -5,7 +5,6 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import { makeStyles } from '@material-ui/core/styles';
-import Layout from '../components/Layout';
 import Grid from '@material-ui/core/Grid';
 import Image from 'next/image';
 import FormGroup from '@material-ui/core/FormGroup';
@@ -14,7 +13,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import useCategorias from '../hooks/useCategorias';
 import Pelicula from '../components/Pelicula';
 import CircularProgress from '@material-ui/core/CircularProgress';
-
+import Head from 'next/head';
 const useStyles = makeStyles(theme=>({
     formGroup:{
         marginTop:22,
@@ -73,7 +72,10 @@ const Categories = () => {
           
       }
     return ( 
-        <Layout>
+        <>
+            <Head>
+                <title>URmovies | Categories</title>
+            </Head>
             <Container component='section' >
                 <Grid container spacing={3} alignItems='center' >
                     {!pantallaMovil? (
@@ -131,7 +133,7 @@ const Categories = () => {
                     </Grid>
                 </Box>
             </Container>
-        </Layout>
+        </>
      );
 }
  

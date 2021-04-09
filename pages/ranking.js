@@ -1,6 +1,6 @@
 import React from 'react';
+import Head from 'next/head';
 import Container from '@material-ui/core/Container';
-import Layout from '../components/Layout';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Pelicula from '../components/Pelicula';
@@ -9,7 +9,10 @@ const Series = ({rank}) => {
     
     if(!rank) return <Typography component='h2' variant='h3' >Ranking is not available</Typography>
     return ( 
-        <Layout>
+        <>
+            <Head>
+                <title>URmovies | Ranking</title>
+            </Head>
             <Container component='main' >
                 <Typography component='h2' variant='h3' gutterBottom >Ranking</Typography>
                 <Grid container spacing={3} >
@@ -20,7 +23,7 @@ const Series = ({rank}) => {
                     ))}
                 </Grid>
             </Container>
-        </Layout>
+        </>
      );
 }
 export async function getStaticProps(){

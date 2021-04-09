@@ -75,6 +75,7 @@ const Pelicula = ({detalles}) => {
                     objectFit="cover"
                     className={classes.imagen}
                     onClick={linkear}
+                    draggable={false}
                 />
             </div> 
             <Box display='flex' alignItems='center' justifyContent='space-between' >
@@ -93,7 +94,9 @@ const Pelicula = ({detalles}) => {
                 </Link>
                 <Puntaje rank={vote_average} />
             </Box>
-            <Typography >{new Date(release_date).getFullYear()} </Typography>
+            {release_date!==''?(
+                <Typography >{new Date(release_date).getFullYear()} </Typography>
+            ) : null}
             <Popover
                 id="mouse-over-popover"
                 className={classes.popover}

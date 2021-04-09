@@ -16,11 +16,12 @@ const useStyles = makeStyles(theme => ({
       display:'flex',
       gap:5,
       transition:'all .2s ease-out',
-      '&:hover':{
-          color:theme.palette.primary.light,
-      },
       alignItems:'center',
-      lineHeight:1.5
+      lineHeight:1.5,
+      '&:hover':{
+          textDecoration:'underline'
+      },
+      
     },
     activo:{
         //borderBottom:`2px solid ${theme.palette.secondary.light}`

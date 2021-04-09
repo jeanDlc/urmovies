@@ -1,6 +1,5 @@
 import Head from 'next/head';
 import Container from '@material-ui/core/Container';
-import Layout from '../components/Layout';
 import Hero from '../components/Hero';
 import Pelicula from '../components/Pelicula';
 import Grid from '@material-ui/core/Grid';
@@ -8,7 +7,7 @@ import Typography from '@material-ui/core/Typography';
 export default function Home({peliculas}) {
   
   return (
-    <Layout>
+    <>
         <Head>
           <title>URmovies | Home</title>
         </Head>
@@ -23,7 +22,7 @@ export default function Home({peliculas}) {
             ))}
         </Grid>
       </Container>
-    </Layout>
+    </>
   )
 }
 export async function getStaticProps(){
