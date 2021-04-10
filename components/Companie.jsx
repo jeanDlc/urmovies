@@ -2,10 +2,10 @@ import React from 'react';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import Image from 'next/image'
-import { useTheme, responsiveFontSizes,ThemeProvider  } from '@material-ui/core/styles';
+import { useTheme } from '@material-ui/core/styles';
 const Companie = ({detalles}) => {
     let theme = useTheme();
-    theme = responsiveFontSizes(theme);
+    
     const {logo_path, name}=detalles;
     
     const urlImagen=`https://image.tmdb.org/t/p/original/${logo_path}`;
@@ -20,10 +20,7 @@ const Companie = ({detalles}) => {
                     draggable={false}
                 />
             </Box>
-            
-            <ThemeProvider theme={theme}>
-                <Typography align='center' component='h4' variant='h5' >{name} </Typography> 
-            </ThemeProvider> 
+            <Typography align='center' component='h4' variant='h5' >{name} </Typography> 
         </Box>
      );
 }

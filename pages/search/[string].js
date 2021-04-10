@@ -2,15 +2,12 @@ import React, {useState, useEffect} from 'react';
 import { useRouter } from 'next/router';
 import { Container } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
-import { useTheme, responsiveFontSizes,ThemeProvider  } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Pelicula from '../../components/Pelicula';
 import Buscador from '../../components/Buscador';
 import Head from 'next/head';
 const Search = () => {
     const [resultados, setResultados]=useState([]);
-    let theme = useTheme();
-    theme = responsiveFontSizes(theme);
     const router=useRouter();
     const {string}=router.query;
     useEffect(()=>{
@@ -38,7 +35,6 @@ const Search = () => {
                 <title>URmovies | Search </title>
             </Head>
             <Container component='main' >
-                <ThemeProvider theme={theme} >
                     <Grid container spacing={3} >
                         <Grid item xs={12} md={6} lg={4} >
                             <Typography style={{textTransform:'capitalize'}} component='h2' variant='h3' gutterBottom >{string} </Typography>
@@ -60,7 +56,6 @@ const Search = () => {
                     ):(
                         <Typography component='p' gutterBottom >No results </Typography>
                     )}
-                </ThemeProvider>                
             </Container>
         </>
      );

@@ -6,7 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
-import { useTheme , responsiveFontSizes,ThemeProvider  } from '@material-ui/core/styles';
+import { useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import Puntaje from '../../components/Puntaje';
 import LanguageIcon from '@material-ui/icons/Language';
@@ -29,7 +29,6 @@ const useStyles = makeStyles(theme => ({
   }));
 const Movie = () => {
     let theme = useTheme ();
-    theme = responsiveFontSizes(theme);
     const pantallaDesktop = useMediaQuery(theme.breakpoints.up('md'));
     
     const classes=useStyles();
@@ -92,7 +91,6 @@ const Movie = () => {
                             </Grid>
                         )}
                         <Grid item xs={12} md={8} >
-                            <ThemeProvider theme={theme}>
                                 <Box component='main' position='relative' zIndex={3} >
                                         <Typography component='h2' variant='h3' >{title} </Typography> 
                                         <Typography gutterBottom >{tagline}</Typography>
@@ -113,16 +111,13 @@ const Movie = () => {
                                         ))}
                                     </Box>
                                 </Box>
-                            </ThemeProvider> 
                         </Grid>
                     </Grid>
                 </Container>
             </Box>
             {production_companies.length>0 && (
                 <Container component='section' >
-                    <ThemeProvider theme={theme}>
                         <Typography component='h3' variant='h5' gutterBottom >Companies:</Typography>
-                    </ThemeProvider>
                     <Grid container spacing={3} style={{marginBottom:'30px'}} >
                         {production_companies.map(comp=>(
                             <Grid key={comp.id} item xs={12} md={6} lg={4} >

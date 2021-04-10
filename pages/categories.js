@@ -1,6 +1,5 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import { Button, Container, Typography } from '@material-ui/core';
-import { responsiveFontSizes, ThemeProvider } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
@@ -32,7 +31,7 @@ const Categories = () => {
 
     let theme = useTheme();
     const pantallaMovil = useMediaQuery(theme.breakpoints.down('sm'));
-    theme=responsiveFontSizes(theme);
+    
     
     const classes=useStyles();
 
@@ -92,9 +91,9 @@ const Categories = () => {
                     ): null}
                     <Grid style={{width:'100%'}} item sm={12} md={8} >
                         <Box maxWidth='600px' margin='0 auto' >
-                            <ThemeProvider theme={theme} >
-                                <Typography component='h2' variant='h2' >Choose the Categories</Typography>
-                            </ThemeProvider>
+                            <Typography component='h2' variant='h2' >
+                                Choose the Categories
+                            </Typography>
                             <FormGroup className={classes.formGroup}>
                                 {listaCategorias.map(cat=>(
                                     <FormControlLabel
