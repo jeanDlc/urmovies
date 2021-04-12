@@ -10,7 +10,7 @@ export default class MyDocument extends Document {
         <Head>
           <link rel="icon" href="/logo.png" />
           <meta name="author" content="Jean Pierre de la Cruz Velásquez" />
-          <meta name="description" content="Information about movies" />
+          <meta name="description" content="Information about your favorite movies" />
           <meta name="keywords" content="Movies, urmovies, tmdb, movie, cine" />
           <meta name="theme-color" content={theme.palette.primary.main} />
           <link

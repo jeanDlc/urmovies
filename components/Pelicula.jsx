@@ -107,7 +107,7 @@ const Pelicula = ({detalles}) => {
                 onClose={handlePopoverClose}
                 disableRestoreFocus
             >
-                <Typography>{overview} </Typography>
+                <Typography>{overview.length>100? `${overview.slice(0,100)}...` :overview} </Typography>
             </Popover>
         </div>
     );

@@ -43,7 +43,7 @@ const Movie = () => {
                 const data= await fetch(url);
                 const pelicula=await data.json();
                 setDataPelicula(pelicula);
-                console.log(pelicula)
+                
             } catch (error) {
                 console.log(error);
             }
@@ -60,76 +60,76 @@ const Movie = () => {
     const urlImgPoster=`https://image.tmdb.org/t/p/original/${poster_path}`;
     
     return ( 
-        <>
-            <Head>
-                <title>URmovies | Movie</title>
-            </Head>
-            <Image
-                src={urlImagen}
-                alt="Logo movie"
-                layout='fill'
-                objectFit="cover"
-                quality={100}
-                className={classes.bg}
-                draggable={false}
-            />
-            <Box height='90vh' marginTop={pantallaDesktop? 6 : 1} >
-                <Container >
-                    <Grid container spacing={3} >
-                        {pantallaDesktop && (
-                            <Grid item xs={12} md={4} >
-                                <Box width='100%' position='relative' height='600px' >
-                                    <Image
-                                        src={urlImgPoster}
-                                        alt="Movie poster image"
-                                        layout="intrinsic"
-                                        width={700}
-                                        height={1000}
-                                        className={classes.imagen}
-                                    />
-                                </Box>
-                            </Grid>
-                        )}
-                        <Grid item xs={12} md={8} >
-                                <Box component='main' position='relative' zIndex={3} >
-                                        <Typography component='h2' variant='h3' >{title} </Typography> 
-                                        <Typography gutterBottom >{tagline}</Typography>
-                                        {release_date!==''?(
-                                            <Typography gutterBottom >{new Date(release_date).getFullYear()}</Typography>
-                                        ) : null}
-                                    <Puntaje rank={vote_average} />
-                                    <Typography component='p' variant={pantallaDesktop? 'h6' :'body1' } gutterBottom >{overview.length>400? `${overview.slice(0,400)}...` :overview}</Typography>
-                                    <Box display='flex' > 
-                                        <LanguageIcon/>
-                                        <Typography >Original Language: {original_language} </Typography>
-                                    </Box>
-                                    <Box component='ul' display='flex' flexWrap='wrap' >
-                                        {genres.map(genero=>(
-                                            <li className={classes.li} key={genero.id} >
-                                                {genero.name}
-                                            </li>
-                                        ))}
-                                    </Box>
-                                </Box>
+    <>
+        <Head>
+            <title>URmovies | Movie</title>
+        </Head>
+        <Image
+            src={urlImagen}
+            alt="Logo movie"
+            layout='fill'
+            objectFit="cover"
+            quality={100}
+            className={classes.bg}
+            draggable={false}
+        />
+        <Box height='90vh' marginTop={pantallaDesktop? 6 : 1} >
+            <Container >
+                <Grid container spacing={3} >
+                    {pantallaDesktop && (
+                        <Grid item xs={12} md={4} >
+                            <Box width='100%' position='relative' height='600px' >
+                                <Image
+                                    src={urlImgPoster}
+                                    alt="Movie poster image"
+                                    layout="intrinsic"
+                                    width={700}
+                                    height={1000}
+                                    className={classes.imagen}
+                                />
+                            </Box>
                         </Grid>
+                    )}
+                    <Grid item xs={12} md={8} >
+                            <Box component='main' overflow='auto' maxHeight='80vh' position='relative' zIndex={3} >
+                                    <Typography component='h2' variant='h3' >{title} </Typography> 
+                                    <Typography gutterBottom >{tagline}</Typography>
+                                    {release_date!==''?(
+                                        <Typography gutterBottom >{new Date(release_date).getFullYear()}</Typography>
+                                    ) : null}
+                                <Puntaje rank={vote_average} />
+                                <Typography component='p' variant={pantallaDesktop? 'h6' :'body1' } gutterBottom >{overview} </Typography>
+                                <Box display='flex' > 
+                                    <LanguageIcon/>
+                                    <Typography >Original Language: {original_language} </Typography>
+                                </Box>
+                                <Box component='ul' display='flex' flexWrap='wrap' >
+                                    {genres.map(genero=>(
+                                        <li className={classes.li} key={genero.id} >
+                                            {genero.name}
+                                        </li>
+                                    ))}
+                                </Box>
+                            </Box>
                     </Grid>
-                </Container>
-            </Box>
-            {production_companies.length>0 && (
-                <Container component='section' >
-                        <Typography component='h3' variant='h5' gutterBottom >Companies:</Typography>
-                    <Grid container spacing={3} style={{marginBottom:'30px'}} >
-                        {production_companies.map(comp=>(
-                            <Grid key={comp.id} item xs={12} md={6} lg={4} >
-                                <Companie detalles={comp} />
-                            </Grid>
-                        ))}
-                    </Grid>
-                    
-                </Container>
-            )}
-            
-        </>
+                </Grid>
+            </Container>
+        </Box>
+        {production_companies.length>0 && (
+            <Container component='section' >
+                    <Typography component='h3' variant='h5' gutterBottom >Companies:</Typography>
+                <Grid container spacing={3} style={{marginBottom:'30px'}} >
+                    {production_companies.map(comp=>(
+                        <Grid key={comp.id} item xs={12} md={6} lg={4} >
+                            <Companie detalles={comp} />
+                        </Grid>
+                    ))}
+                </Grid>
+                
+            </Container>
+        )}
+        
+    </>
      );
 }
  
