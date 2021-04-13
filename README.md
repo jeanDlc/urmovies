@@ -1,4 +1,4 @@
-Esta es una app que consume el api de [The Movie Databate](https://www.themoviedb.org/), y sirve información acerca de muchas películas y su popularidad. No es un servicio de streaming
+Esta es una app que consume el api de [The Movie Database](https://www.themoviedb.org/), y sirve información acerca de muchas películas y su popularidad. No es un servicio de streaming
 
 Este es un proyecto que usa [Next.js](https://nextjs.org/) con el comando [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
@@ -15,6 +15,7 @@ Abrir [http://localhost:3000](http://localhost:3000) en tu browser preferido
 
 ## TMDB api
 Este proyecto usa el api de [TMDB](https://www.themoviedb.org/) , debes crear una cuenta y un api key. Es gratis, solo asegúrate de usar el api_key para developers
+EL api key debe ser guardado como variable de entorno
 
 ## Material ui
 Para el diseño, se usó [Material UI](https://material-ui.com)
@@ -31,8 +32,6 @@ npm install @material-ui/icons
 # or
 yarn add @material-ui/icons
 ```
-
-
 
 ## Deploy en Vercel
 
