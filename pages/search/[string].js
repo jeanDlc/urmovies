@@ -1,9 +1,9 @@
 import React, {useState, useEffect} from 'react';
-import { useRouter } from 'next/router';
-import { Container } from '@material-ui/core';
-import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
-import Pelicula from '../../components/Pelicula';
+import { useRouter } from 'next/navigation';
+import { Container } from '@mui/material';
+import Typography from '@mui/material/Typography';
+import Grid from '@mui/material/Grid';
+import Movie from '../../components/Movie';
 import Buscador from '../../components/Buscador';
 import Head from 'next/head';
 const Search = () => {
@@ -48,7 +48,7 @@ const Search = () => {
                         <Grid style={{marginTop:10}} container spacing={3} >
                         {resultados.map(res=>(
                             <Grid key={res.id} item xs={12} md={6} xl={4} >
-                                <Pelicula detalles={res} />
+                                <Movie movie={res} />
                             </Grid>
                         ))}
                         

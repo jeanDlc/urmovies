@@ -1,15 +1,15 @@
 import React, {useEffect, useState} from 'react';
-import { useRouter } from 'next/router';
-import { Container } from '@material-ui/core';
+import { useRouter } from 'next/navigation';
+import { Container } from '@mui/material';
 import Image from 'next/image';
-import { makeStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
-import Typography from '@material-ui/core/Typography';
-import { useTheme } from '@material-ui/core/styles';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { makeStyles } from '@mui/material/styles';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import Puntaje from '../../components/Puntaje';
-import LanguageIcon from '@material-ui/icons/Language';
+import LanguageIcon from '@mui/icons-material/Language';
 import Companie from '../../components/Companie';
 import Head from 'next/head';
 const useStyles = makeStyles(theme => ({
