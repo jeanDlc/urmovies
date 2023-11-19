@@ -20,6 +20,9 @@ export interface Movie {
   video: false;
   vote_average: number;
   vote_count: number;
+  genres: { id: string; name: string }[];
+  production_companies: { id: string; logo_path: string; name: string }[];
+  tagline: string;
 }
 
 export interface Category {

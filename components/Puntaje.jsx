@@ -22,7 +22,7 @@ const Puntaje = ({ rank }) => {
         justifyContent="center"
       >
         <Typography variant="caption" component="div" color="textPrimary">
-          {movieRanking.toFixed(2)}
+          {Math.round(movieRanking)}
         </Typography>
       </Box>
     </Box>
