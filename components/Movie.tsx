@@ -3,7 +3,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Popover from "@mui/material/Popover";
 import Typography from "@mui/material/Typography";
-import Puntaje from "./Puntaje";
+import Score from "@/components/Score";
 import Box from "@mui/material/Box";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -75,7 +75,7 @@ const Movie = ({ movie }: { movie: IMovie }) => {
             {title}
           </Typography>
         </Link>
-        <Puntaje rank={vote_average.toFixed(2)} />
+        <Score score={vote_average} />
       </Box>
       {release_date !== "" ? (
         <Typography>{new Date(release_date).getFullYear()} </Typography>

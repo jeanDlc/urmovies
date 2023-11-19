@@ -5,8 +5,8 @@ import Toolbar from "@mui/material/Toolbar";
 import useScrollTrigger from "@mui/material/useScrollTrigger";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
-import MenuDesktop from "./MenuDesktop";
-import MenuMovil from "./MenuMovil";
+import MenuDesktop from "@/components/MenuDesktop";
+import MenuMovil from "@/components/MenuMovil";
 
 function ElevationScroll(props: any) {
   const { children, window } = props;

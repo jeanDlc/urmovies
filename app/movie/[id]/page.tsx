@@ -3,7 +3,7 @@ import Image from "next/image";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import Puntaje from "../../../components/Puntaje";
+import Score from "@/components/Score";
 import LanguageIcon from "@mui/icons-material/Language";
 import Company from "@/components/Company";
 import Head from "next/head";
@@ -82,7 +82,7 @@ const Movie = async ({ params }: { params: { id: string } }) => {
                     {new Date(release_date).getFullYear()}
                   </Typography>
                 ) : null}
-                <Puntaje rank={vote_average} />
+                <Score score={vote_average} />
                 <Typography component="p" variant={"h6"} gutterBottom>
                   {overview}
                 </Typography>

@@ -2,14 +2,15 @@ import Box from "@mui/material/Box";
 import CircularProgress from "@mui/material/CircularProgress";
 import Typography from "@mui/material/Typography";
 
-const Puntaje = ({ rank }) => {
-  const movieRanking = rank * 10;
+const Score = ({ score }: { score: number }) => {
+  const movieScore = score * 10;
+
   return (
     <Box position="relative" display="inline-flex">
       <CircularProgress
         color="secondary"
         variant="determinate"
-        value={movieRanking}
+        value={movieScore}
       />
       <Box
         top={0}
@@ -22,11 +23,11 @@ const Puntaje = ({ rank }) => {
         justifyContent="center"
       >
         <Typography variant="caption" component="div" color="textPrimary">
-          {Math.round(movieRanking)}
+          {Math.round(movieScore)}
         </Typography>
       </Box>
     </Box>
   );
 };
 
-export default Puntaje;
+export default Score;
