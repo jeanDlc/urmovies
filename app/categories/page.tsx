@@ -1,75 +1,72 @@
-import React, { useState } from "react";
+"use client";
+import { useState } from "react";
+import Head from "next/head";
 import { Button, Container, Typography } from "@mui/material";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
-import { makeStyles } from "@mui/material/styles";
 import Grid from "@mui/material/Grid";
 import Image from "next/image";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
-import useCategorias from "../hooks/useCategorias";
-import Movie from "../components/Movie";
 import CircularProgress from "@mui/material/CircularProgress";
-import Head from "next/head";
-const useStyles = makeStyles((theme) => ({
-  formGroup: {
-    marginTop: 22,
-    display: "grid",
-    gridTemplateColumns: "repeat(2, 1fr)",
-    [theme.breakpoints.up("md")]: {
-      gridTemplateColumns: "repeat(3, 1fr)",
-    },
-    marginBottom: 20,
-  },
-}));
+
+import useCategories from "@/hooks/useCategories";
+import Movie from "@/components/Movie";
+
+import type { ChangeEvent } from "react";
+import type { Category, Movie as IMovie } from "@/types";
 
 const Categories = () => {
-  //trae toda las categorias de peliculas
-  const listaCategorias = useCategorias();
+  const { categories } = useCategories();
 
   let theme = useTheme();
   const pantallaMovil = useMediaQuery(theme.breakpoints.down("sm"));
 
-  const classes = useStyles();
+  const [categoryIdList, setCategoryIdList] = useState<Array<Category["id"]>>(
+    [],
+  );
 
-  const [listaIdCategorias, setListaIdCategorias] = useState([]);
-  const [listaPeliculas, setListaPeliculas] = useState([]);
+  const [movieList, setMovieList] = useState<IMovie[]>([]);
+
   const [loading, setLoading] = useState(false);
-  const [mensaje, setMensaje] = useState("");
-  const handleChange = (event) => {
+
+  const [message, setMessage] = useState("");
+
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
-      //si se hace check, se agregará a la lista de ids
-      setListaIdCategorias([...listaIdCategorias, event.target.id]);
+      setCategoryIdList([...categoryIdList, event.target.id]);
     } else {
-      //sino , se eliminará de la lista
-      setListaIdCategorias(
-        listaIdCategorias.filter((id) => id !== event.target.id),
-      );
+      setCategoryIdList(categoryIdList.filter((id) => id !== event.target.id));
     }
   };
 
-  const buscarPorCategoria = async () => {
-    if (mensaje !== "") {
-      setMensaje("");
+  const searchByCategory = async () => {
+    if (message) {
+      setMessage("");
     }
+
     setLoading(true);
 
     try {
-      const url = `https://api.themoviedb.org/3/discover/movie?api_key=${
-        process.env.NEXT_PUBLIC_TMDB_API
-      }&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=${listaIdCategorias.toString()}`;
-      const res = await fetch(url);
-      const busqueda = await res.json();
-      if (busqueda.results.length === 0) {
-        setMensaje("No results");
+      const params = new URLSearchParams();
+
+      params.append("categories", categoryIdList.toString());
+
+      const res = await fetch(`/categories/api/search?${params.toString()}`);
+
+      const { data } = await res.json();
+
+      if (data.length === 0) {
+        setMessage("No results");
       }
       setLoading(false);
-      setListaPeliculas(busqueda.results);
+
+      setMovieList(data);
     } catch (error) {
       setLoading(false);
-      setMensaje("Error");
+      setMessage("Error");
     }
   };
   return (
@@ -91,13 +88,23 @@ const Categories = () => {
               </Box>
             </Grid>
           ) : null}
-          <Grid style={{ width: "100%" }} item sm={12} md={8}>
+          <Grid sx={{ width: "100%" }} item sm={12} md={8}>
             <Box maxWidth="600px" margin="0 auto">
               <Typography component="h2" variant="h2">
                 Choose the Categories
               </Typography>
-              <FormGroup className={classes.formGroup}>
-                {listaCategorias.map((cat) => (
+              <FormGroup
+                sx={{
+                  marginTop: 3,
+                  display: "grid",
+                  gridTemplateColumns: "repeat(2, 1fr)",
+                  [theme.breakpoints.up("md")]: {
+                    gridTemplateColumns: "repeat(3, 1fr)",
+                  },
+                  marginBottom: 2.5,
+                }}
+              >
+                {categories.map((cat) => (
                   <FormControlLabel
                     key={cat.id}
                     control={
@@ -112,7 +119,7 @@ const Categories = () => {
                 ))}
               </FormGroup>
               <Button
-                onClick={buscarPorCategoria}
+                onClick={searchByCategory}
                 color="secondary"
                 fullWidth={true}
                 size="large"
@@ -128,16 +135,18 @@ const Categories = () => {
             <CircularProgress color="secondary" />
           </Box>
         )}
-        {mensaje !== "" && (
+
+        {message && (
           <Box textAlign="center" marginTop={15}>
             <Typography component="p" variant="h3" gutterBottom>
-              {mensaje}{" "}
+              {message}
             </Typography>
           </Box>
         )}
+
         <Box component="main" marginTop={20}>
           <Grid container spacing={3}>
-            {listaPeliculas.map((pelicula) => (
+            {movieList.map((pelicula) => (
               <Grid xs={12} md={6} lg={4} item key={pelicula.id}>
                 <Movie movie={pelicula} />
               </Grid>
