@@ -31,8 +31,8 @@ const SearchInput = () => {
       <TextField
         fullWidth={true}
         type="text"
-        label="Movies"
-        variant="filled"
+        label="Search"
+        placeholder="Ex. The godfather"
         size="medium"
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}

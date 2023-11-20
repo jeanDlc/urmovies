@@ -12,7 +12,7 @@ const Hero = () => {
         alt="URmovies"
         fill
         quality={100}
-        style={{ opacity: 0.4 }}
+        style={{ opacity: 0.4, objectFit: "cover" }}
       />
       <Box position="relative" sx={{ paddingTop: "10vh" }}>
         <Typography
@@ -25,7 +25,7 @@ const Hero = () => {
           Your favorite Movies
         </Typography>
         <Typography variant="h4" component="p" align="center" gutterBottom>
-          Find your Movie:
+          Find a Movie
         </Typography>
         <Container maxWidth="sm">
           <SearchInput />
