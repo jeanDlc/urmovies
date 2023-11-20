@@ -5,6 +5,11 @@ export type AppTheme = typeof theme;
 
 export type AppSx = SxProps<AppTheme>;
 
+interface Field {
+  id: string;
+  name: string;
+}
+
 export interface Movie {
   adult: boolean;
   backdrop_path: string;
@@ -20,9 +25,11 @@ export interface Movie {
   video: false;
   vote_average: number;
   vote_count: number;
-  genres: { id: string; name: string }[];
+  genres: Field[];
   production_companies: { id: string; logo_path: string; name: string }[];
   tagline: string;
+  status: string;
+  spoken_languages: Field[];
 }
 
 export interface Category {

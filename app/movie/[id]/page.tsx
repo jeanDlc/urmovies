@@ -3,8 +3,6 @@ import Image from "next/image";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import Score from "@/components/Score";
-import LanguageIcon from "@mui/icons-material/Language";
 import Company from "@/components/Company";
 import Head from "next/head";
 import { Api } from "@/services/buildRequestUrl";
@@ -41,6 +39,9 @@ const Movie = async ({ params }: { params: { id: string } }) => {
     original_language,
     genres,
     production_companies,
+    status,
+    spoken_languages,
+    vote_count,
   } = movie;
 
   const imageUrl = `https://image.tmdb.org/t/p/original/${backdrop_path}`;
@@ -58,7 +59,7 @@ const Movie = async ({ params }: { params: { id: string } }) => {
         layout="fill"
         objectFit="cover"
         quality={100}
-        style={{ opacity: 0.3 }}
+        style={{ opacity: 0.1 }}
         draggable={false}
       />
       <Box height="90vh" marginTop={4}>
@@ -73,39 +74,37 @@ const Movie = async ({ params }: { params: { id: string } }) => {
                 position="relative"
                 zIndex={3}
               >
-                <Typography component="h2" variant="h3" sx={{ mb: 2 }}>
+                <Typography component="h2" variant="h3" gutterBottom>
                   {title}
                 </Typography>
                 <Typography gutterBottom>{tagline}</Typography>
-                {release_date !== "" ? (
-                  <Typography gutterBottom>
-                    {new Date(release_date).getFullYear()}
-                  </Typography>
-                ) : null}
-                <Score score={vote_average} />
-                <Typography component="p" variant={"h6"} gutterBottom>
-                  {overview}
+                <Typography sx={{ mb: 4 }}>
+                  {`${new Date(release_date).getFullYear()} | ${genres
+                    .map((g) => g.name)
+                    .join(", ")} | ${status}`}
                 </Typography>
-                <Box display="flex" gap={1}>
-                  <LanguageIcon />
-                  <Typography>
-                    Original Language: {original_language}
+
+                <Typography component="h3" variant={"h5"} gutterBottom>
+                  Overview
+                </Typography>
+                <Typography sx={{ mb: 2 }}>{overview}</Typography>
+                <Box display="flex" gap={2} my={1} alignItems={"center"}>
+                  <Typography>Original language</Typography>
+                  <Typography sx={{ fontWeight: "bold" }}>
+                    {original_language}
                   </Typography>
                 </Box>
-                <Box component="ul" display="flex" flexWrap="wrap">
-                  {genres?.map((genre) => (
-                    <li
-                      style={{
-                        display: "inline-block",
-                        marginRight: "15px",
-                        textDecoration: "none",
-                        listStyle: "none",
-                      }}
-                      key={genre.id}
-                    >
-                      {genre.name}
-                    </li>
-                  ))}
+                <Box display="flex" gap={2} my={1} alignItems={"center"}>
+                  <Typography>Spoken languages</Typography>
+                  <Typography sx={{ fontWeight: "bold" }}>
+                    {spoken_languages.map(({ name }) => name).join(", ")}
+                  </Typography>
+                </Box>
+                <Box display="flex" gap={2} my={1} alignItems={"center"}>
+                  <Typography>Votes count</Typography>
+                  <Typography sx={{ fontWeight: "bold" }}>
+                    {vote_count}
+                  </Typography>
                 </Box>
               </Box>
             </Grid>
@@ -115,7 +114,7 @@ const Movie = async ({ params }: { params: { id: string } }) => {
       {production_companies?.length > 0 && (
         <Container component="section">
           <Typography component="h3" variant="h5" gutterBottom>
-            Companies:
+            Companies
           </Typography>
           <Grid container spacing={3} style={{ marginBottom: "30px" }}>
             {production_companies.map((prodCompany) => (
