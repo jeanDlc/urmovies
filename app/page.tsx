@@ -16,7 +16,7 @@ export default async function Home() {
         <Typography component="h2" variant="h2" gutterBottom>
           Movies
         </Typography>
-        <Grid container spacing={3}>
+        <Grid container spacing={2} alignItems={"stretch"}>
           {data.results.map((movie) => (
             <Grid key={movie.id} item xs={12} sm={6} lg={4}>
               <Movie movie={movie} />

@@ -22,7 +22,7 @@ export const theme = createTheme({
     },
     text: {
       primary: "#fff",
-      secondary: "#444",
+      secondary: "rgba(255, 255, 255, 0.7)",
     },
   },
   typography: {
