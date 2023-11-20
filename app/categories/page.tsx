@@ -2,15 +2,15 @@
 import { useState } from "react";
 import Head from "next/head";
 import { Button, Container, Typography } from "@mui/material";
-import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
-import Image from "next/image";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import CircularProgress from "@mui/material/CircularProgress";
+import SearchIcon from "@mui/icons-material/Search";
+import ClearIcon from "@mui/icons-material/Clear";
 
 import useCategories from "@/hooks/useCategories";
 import Movie from "@/components/Movie";
@@ -22,10 +22,9 @@ const Categories = () => {
   const { categories } = useCategories();
 
   let theme = useTheme();
-  const pantallaMovil = useMediaQuery(theme.breakpoints.down("sm"));
 
-  const [categoryIdList, setCategoryIdList] = useState<Array<Category["id"]>>(
-    [],
+  const [categoryIdList, setCategoryIdList] = useState(
+    new Set<Category["id"]>(),
   );
 
   const [movieList, setMovieList] = useState<IMovie[]>([]);
@@ -35,11 +34,17 @@ const Categories = () => {
   const [message, setMessage] = useState("");
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    if (event.target.checked) {
-      setCategoryIdList([...categoryIdList, event.target.id]);
+    const categoryIdListCopy = new Set(categoryIdList);
+
+    const id = Number(event.target.id);
+
+    if (!categoryIdListCopy.has(id)) {
+      categoryIdListCopy.add(id);
     } else {
-      setCategoryIdList(categoryIdList.filter((id) => id !== event.target.id));
+      categoryIdListCopy.delete(id);
     }
+
+    setCategoryIdList(categoryIdListCopy);
   };
 
   const searchByCategory = async () => {
@@ -52,7 +57,7 @@ const Categories = () => {
     try {
       const params = new URLSearchParams();
 
-      params.append("categories", categoryIdList.toString());
+      params.append("categories", Array.from(categoryIdList).toString());
 
       const res = await fetch(`/categories/api/search?${params.toString()}`);
 
@@ -69,42 +74,62 @@ const Categories = () => {
       setMessage("Error");
     }
   };
+
+  const sortedCategories = [...categories].sort((a, b) =>
+    a.name.localeCompare(b.name),
+  );
+
   return (
     <>
       <Head>
         <title>URmovies | Categories</title>
       </Head>
       <Container component="section">
-        <Grid container spacing={3} alignItems="center">
-          {!pantallaMovil ? (
-            <Grid item xs={12} md={4}>
-              <Box>
-                <Image
-                  src="/logo.png"
-                  alt="Logo urmovies"
-                  width={416}
-                  height={480}
-                />
+        <Box margin="0 auto">
+          <Grid container spacing={2}>
+            <Grid item xs={12} md={9}>
+              <Typography component="h2" variant="h4">
+                Categories
+              </Typography>
+            </Grid>
+            <Grid item xs={12} md={3}>
+              <Box display={"flex"} gap={1} alignItems={"center"}>
+                <Button
+                  onClick={searchByCategory}
+                  fullWidth={true}
+                  size="large"
+                  variant="contained"
+                  endIcon={<SearchIcon />}
+                >
+                  Search
+                </Button>
+                <Button
+                  onClick={() => {
+                    setCategoryIdList(new Set());
+                  }}
+                  color="secondary"
+                  fullWidth={true}
+                  size="large"
+                  variant="contained"
+                  endIcon={<ClearIcon />}
+                >
+                  Reset
+                </Button>
               </Box>
             </Grid>
-          ) : null}
-          <Grid sx={{ width: "100%" }} item sm={12} md={8}>
-            <Box maxWidth="600px" margin="0 auto">
-              <Typography component="h2" variant="h2">
-                Choose the Categories
-              </Typography>
+          </Grid>
+          <Grid container mt={2}>
+            <Grid xs={12}>
               <FormGroup
                 sx={{
-                  marginTop: 3,
                   display: "grid",
                   gridTemplateColumns: "repeat(2, 1fr)",
                   [theme.breakpoints.up("md")]: {
-                    gridTemplateColumns: "repeat(3, 1fr)",
+                    gridTemplateColumns: "repeat(4, 1fr)",
                   },
-                  marginBottom: 2.5,
                 }}
               >
-                {categories.map((cat) => (
+                {sortedCategories.map((cat) => (
                   <FormControlLabel
                     key={cat.id}
                     control={
@@ -112,24 +137,16 @@ const Categories = () => {
                         onChange={handleChange}
                         name={cat.name}
                         id={`${cat.id}`}
+                        checked={categoryIdList.has(cat.id)}
                       />
                     }
                     label={cat.name}
                   />
                 ))}
               </FormGroup>
-              <Button
-                onClick={searchByCategory}
-                color="secondary"
-                fullWidth={true}
-                size="large"
-                variant="contained"
-              >
-                Search by category
-              </Button>
-            </Box>
+            </Grid>
           </Grid>
-        </Grid>
+        </Box>
         {loading && (
           <Box textAlign="center" marginTop={20}>
             <CircularProgress color="secondary" />
@@ -144,7 +161,7 @@ const Categories = () => {
           </Box>
         )}
 
-        <Box component="main" marginTop={20}>
+        <Box component="main" mt={10}>
           <Grid container spacing={3}>
             {movieList.map((pelicula) => (
               <Grid xs={12} md={6} lg={4} item key={pelicula.id}>
