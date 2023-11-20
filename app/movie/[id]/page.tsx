@@ -4,11 +4,16 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Company from "@/components/Company";
-import Head from "next/head";
+
 import { Api } from "@/services/buildRequestUrl";
 import DesktopMovieImage from "./DesktopMovieImage";
 
 import type { Movie as IMovie } from "@/types";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "URmovies | Page",
+};
 
 const Movie = async ({ params }: { params: { id: string } }) => {
   const { id } = params;
@@ -50,9 +55,6 @@ const Movie = async ({ params }: { params: { id: string } }) => {
 
   return (
     <>
-      <Head>
-        <title>URmovies | Movie</title>
-      </Head>
       <Image
         src={imageUrl}
         alt="Logo movie"
