@@ -1,5 +1,12 @@
+import { Inter } from "next/font/google";
 import { createTheme } from "@mui/material/styles";
 import { red } from "@mui/material/colors";
+
+const inter = Inter({
+  weight: ["300", "400", "500", "700"],
+  subsets: ["latin"],
+  display: "swap",
+});
 
 export const theme = createTheme({
   palette: {
@@ -25,7 +32,7 @@ export const theme = createTheme({
     mode: "dark",
   },
   typography: {
-    // fontFamily: roboto.style.fontFamily,
+    fontFamily: inter.style.fontFamily,
   },
   components: {
     MuiAlert: {
