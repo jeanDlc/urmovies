@@ -10,7 +10,7 @@ export class Api {
   }) {
     const url = new URL(`${this.BASE_URL}${path}`);
 
-    url.searchParams.append("api_key", `${process.env.NEXT_PUBLIC_TMDB_API}`);
+    url.searchParams.append("api_key", `${process.env.TMDB_API_KEY}`);
     url.searchParams.append("language", "en-US");
     url.searchParams.append("page", "1");
 
