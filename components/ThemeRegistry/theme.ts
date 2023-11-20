@@ -4,35 +4,28 @@ import { red } from "@mui/material/colors";
 export const theme = createTheme({
   palette: {
     primary: {
-      main: "#2d22a2",
-      light: "#d9b1ff",
+      main: "rgb(71, 130, 218)",
       contrastText: "#fff",
     },
     secondary: {
-      main: "#00c899",
-      light: "#cafbe7",
-      contrastText: "#fff",
+      main: "#1a252f",
+      contrastText: "#e1e1e1",
     },
     error: {
       main: red.A400,
     },
     background: {
-      default: "#0f123d",
-      paper: "#2d22a2",
+      default: "rgb(27, 38, 53)",
+      paper: "rgb(35, 48, 68)",
     },
     text: {
-      primary: "#fff",
-      secondary: "rgba(255, 255, 255, 0.7)",
+      primary: "rgba(255, 255, 255, 0.95)",
+      secondary: "rgba(255, 255, 255, 0.5)",
     },
+    mode: "dark",
   },
   typography: {
     // fontFamily: roboto.style.fontFamily,
-    h1: {
-      color: "#ffffff",
-    },
-    h2: {
-      color: "#fff",
-    },
   },
   components: {
     MuiAlert: {

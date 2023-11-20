@@ -7,11 +7,7 @@ const Score = ({ score }: { score: number }) => {
 
   return (
     <Box position="relative" display="inline-flex">
-      <CircularProgress
-        color="secondary"
-        variant="determinate"
-        value={movieScore}
-      />
+      <CircularProgress variant="determinate" value={movieScore} />
       <Box
         top={0}
         left={0}

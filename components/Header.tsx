@@ -9,6 +9,7 @@ import MenuDesktop from "@/components/MenuDesktop";
 import MenuMovil from "@/components/MenuMovil";
 
 function ElevationScroll(props: any) {
+  const { palette } = useTheme();
   const { children, window } = props;
   // Note that you normally won't need to set the window ref as useScrollTrigger
   // will default to window.
@@ -21,7 +22,7 @@ function ElevationScroll(props: any) {
   return cloneElement(children, {
     elevation: trigger ? 4 : 0,
     style: {
-      backgroundColor: trigger ? "#0f123d" : "transparent",
+      backgroundColor: trigger ? palette.background.default : "transparent",
     },
   });
 }
