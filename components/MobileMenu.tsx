@@ -22,7 +22,7 @@ const DRAWER_WIDTH = 240;
 
 const sxIcon: AppSx = { color: "white" };
 
-const MenuMovil = () => {
+const MobileMenu = () => {
   const [open, setOpen] = useState(false);
 
   const handleDrawerOpen = () => {
@@ -112,4 +112,4 @@ const MenuMovil = () => {
   );
 };
 
-export default MenuMovil;
+export default MobileMenu;

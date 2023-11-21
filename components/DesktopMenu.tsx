@@ -29,7 +29,7 @@ const sxActiveLink: AppSx = {
   paddingX: 1,
 };
 
-const MenuDesktop = () => {
+const DesktopMenu = () => {
   const pathname = usePathname();
 
   const isHomePage = pathname === "/";
@@ -86,4 +86,4 @@ const MenuDesktop = () => {
   );
 };
 
-export default MenuDesktop;
+export default DesktopMenu;

@@ -5,8 +5,8 @@ import Toolbar from "@mui/material/Toolbar";
 
 import useScrollTrigger from "@mui/material/useScrollTrigger";
 import { useTheme } from "@mui/material/styles";
-import MenuDesktop from "@/components/MenuDesktop";
-import MenuMovil from "@/components/MenuMovil";
+import DesktopMenu from "@/components/DesktopMenu";
+import MobileMenu from "@/components/MobileMenu";
 import Box from "@mui/material/Box";
 
 function ElevationScroll(props: any) {
@@ -38,10 +38,10 @@ const Header = () => {
                 width: "100%",
               }}
             >
-              <MenuMovil />
+              <MobileMenu />
             </Box>
             <Box sx={{ display: { xs: "none", md: "block" }, width: "100%" }}>
-              <MenuDesktop />
+              <DesktopMenu />
             </Box>
           </Toolbar>
         </AppBar>
