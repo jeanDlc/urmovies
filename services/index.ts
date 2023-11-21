@@ -1,3 +1,4 @@
+import { MONTH } from "@/constants/toMiliseconds";
 import { Api } from "@/services/buildRequestUrl";
 
 import type { Movie } from "@/types";
@@ -14,7 +15,7 @@ export const getRankedMovies = async () => {
 export const getPopularMovies = async () => {
   const url = Api.buildRequestUrl({ path: "/movie/popular" });
 
-  const res = await fetch(url);
+  const res = await fetch(url, { next: { revalidate: MONTH } });
 
   const data: {
     page: number;
