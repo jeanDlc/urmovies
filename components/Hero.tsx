@@ -13,6 +13,7 @@ const Hero = () => {
         fill
         quality={100}
         style={{ opacity: 0.4, objectFit: "cover" }}
+        priority
       />
       <Box position="relative" sx={{ paddingTop: "10vh" }}>
         <Typography
