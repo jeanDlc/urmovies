@@ -4,7 +4,8 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Company from "@/components/Company";
-
+import { getPopularMovies } from "@/services";
+import { MONTH } from "@/constants";
 import { Api } from "@/services/buildRequestUrl";
 import DesktopMovieImage from "./DesktopMovieImage";
 
@@ -14,6 +15,14 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "URmovies | Page",
 };
+
+export async function generateStaticParams() {
+  const { results: movies } = await getPopularMovies();
+
+  return movies.map(({ id }) => ({ id: String(id) }));
+}
+
+export const revalidate = MONTH;
 
 const Movie = async ({ params }: { params: { id: string } }) => {
   const { id } = params;

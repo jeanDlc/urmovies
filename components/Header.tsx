@@ -2,18 +2,17 @@
 import { cloneElement } from "react";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
+
 import useScrollTrigger from "@mui/material/useScrollTrigger";
-import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
-import MenuDesktop from "@/components/MenuDesktop";
-import MenuMovil from "@/components/MenuMovil";
+import DesktopMenu from "@/components/DesktopMenu";
+import MobileMenu from "@/components/MobileMenu";
+import Box from "@mui/material/Box";
 
 function ElevationScroll(props: any) {
   const { palette } = useTheme();
   const { children, window } = props;
-  // Note that you normally won't need to set the window ref as useScrollTrigger
-  // will default to window.
-  // This is only being set here because the demo is in an iframe.
+
   const trigger = useScrollTrigger({
     disableHysteresis: true,
     threshold: 0,
@@ -28,13 +27,23 @@ function ElevationScroll(props: any) {
 }
 
 const Header = () => {
-  const theme = useTheme();
-  const pantallaDesktop = useMediaQuery(theme.breakpoints.up("md"));
   return (
     <>
       <ElevationScroll>
         <AppBar>
-          <Toolbar>{pantallaDesktop ? <MenuDesktop /> : <MenuMovil />}</Toolbar>
+          <Toolbar>
+            <Box
+              sx={{
+                display: { xl: "none", xs: "block", md: "none" },
+                width: "100%",
+              }}
+            >
+              <MobileMenu />
+            </Box>
+            <Box sx={{ display: { xs: "none", md: "block" }, width: "100%" }}>
+              <DesktopMenu />
+            </Box>
+          </Toolbar>
         </AppBar>
       </ElevationScroll>
       <Toolbar />

@@ -21,12 +21,7 @@ export default function Error({
         {error.message}
       </Alert>
 
-      <Button
-        LinkComponent={Link}
-        href="/"
-        variant="contained"
-        startIcon={<ArrowBackIosIcon />}
-      >
+      <Button LinkComponent={Link} href="/" startIcon={<ArrowBackIosIcon />}>
         Go home
       </Button>
     </Container>
