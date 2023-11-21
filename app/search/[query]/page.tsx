@@ -1,30 +1,24 @@
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
-import Movie from "@/components/Movie";
 import SearchInput from "@/components/SearchInput";
-import { Api } from "@/services/buildRequestUrl";
+import { Suspense } from "react";
+import MovieListSkeleton from "@/components/MovieListSkeleton";
+import Movie from "@/components/Movie";
+import { searchMovie } from "@/services";
 
-import type { Movie as IMovie } from "@/types";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "URmovies | Search",
 };
 
-const Search = async ({ params }: { params: { query: string } }) => {
+export default async function Search({
+  params,
+}: {
+  params: { query: string };
+}) {
   const query = decodeURIComponent(params.query);
-
-  const url = Api.buildRequestUrl({
-    path: "/search/movie",
-    params: { query, include_adult: "false" },
-  });
-
-  const res = await fetch(url);
-
-  const data = await res.json();
-
-  const results: IMovie[] = data.results;
 
   return (
     <Container component="main">
@@ -44,21 +38,28 @@ const Search = async ({ params }: { params: { query: string } }) => {
         </Grid>
       </Grid>
 
-      {results.length > 0 ? (
-        <Grid style={{ marginTop: 10 }} container spacing={3}>
-          {results.map((res) => (
-            <Grid key={res.id} item xs={12} md={6} xl={4}>
-              <Movie movie={res} />
-            </Grid>
-          ))}
-        </Grid>
-      ) : (
-        <Typography component="p" gutterBottom>
-          No results found for {query}
-        </Typography>
-      )}
+      <Suspense fallback={<MovieListSkeleton nItems={6} />}>
+        <SearchResults query={query} />
+      </Suspense>
     </Container>
   );
-};
+}
 
-export default Search;
+const SearchResults = async ({ query }: { query: string }) => {
+  const results = await searchMovie({ query });
+  if (!results.length)
+    return (
+      <Typography component="p" gutterBottom>
+        No results found for {query}
+      </Typography>
+    );
+  return (
+    <Grid style={{ marginTop: 10 }} container spacing={3}>
+      {results.map((res) => (
+        <Grid key={res.id} item xs={12} md={6} xl={4}>
+          <Movie movie={res} />
+        </Grid>
+      ))}
+    </Grid>
+  );
+};

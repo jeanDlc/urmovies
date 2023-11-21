@@ -4,12 +4,10 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Company from "@/components/Company";
-import { getPopularMovies } from "@/services";
+import { getMovieById, getPopularMovies } from "@/services";
 import { MONTH } from "@/constants";
-import { Api } from "@/services/buildRequestUrl";
 import DesktopMovieImage from "./DesktopMovieImage";
 
-import type { Movie as IMovie } from "@/types";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -27,25 +25,11 @@ export const revalidate = MONTH;
 const Movie = async ({ params }: { params: { id: string } }) => {
   const { id } = params;
 
-  const url = Api.buildRequestUrl({
-    path: `/movie/${id}`,
-  });
-
-  const res = await fetch(url);
-
-  if (!res.ok) {
-    if (res.status === 404) {
-      throw new Error(`Couldn't find a movie with ID ${id}`);
-    }
-
-    throw new Error("Unexpected error");
-  }
-  const movie: IMovie = await res.json();
+  const movie = await getMovieById(id);
 
   const {
     backdrop_path,
     title,
-    vote_average,
     tagline,
     overview,
     poster_path,
@@ -72,6 +56,7 @@ const Movie = async ({ params }: { params: { id: string } }) => {
         quality={100}
         style={{ opacity: 0.1 }}
         draggable={false}
+        priority
       />
       <Box height="90vh" marginTop={4}>
         <Container>
