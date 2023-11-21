@@ -2,39 +2,33 @@ import Image from "next/image";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import NextLink from "next/link";
-import Link from "@mui/material/Link";
 import MovieCreationIcon from "@mui/icons-material/MovieCreation";
 import CategoryIcon from "@mui/icons-material/Category";
 import StarRateIcon from "@mui/icons-material/StarRate";
 import { usePathname } from "next/navigation";
-import { SxProps } from "@mui/material";
-import { AppSx } from "@/types";
+import { styled } from "@mui/material/styles";
 
-const sxLink: SxProps = {
-  color: "white",
-  fontSize: 20,
-  textDecoration: "none",
-  display: "flex",
-  gap: 1,
-  transition: "all .2s ease-out",
-  alignItems: "center",
-  lineHeight: 1.5,
-};
-
-const sxActiveLink: AppSx = {
-  ...sxLink,
-  backgroundColor: (theme) => theme.palette.primary.main,
-  borderRadius: 1,
-  paddingY: 1,
-  paddingX: 1,
-};
+const StyledLink = styled(NextLink)<{ isActive: boolean }>(({
+  isActive,
+  theme,
+}) => {
+  return {
+    color: isActive ? theme.palette.primary.main : "white",
+    fontSize: 20,
+    textDecoration: "none",
+    display: "flex",
+    gap: theme.spacing(1),
+    transition: "all .2s ease-out",
+    alignItems: "center",
+    lineHeight: 1.5,
+    padding: theme.spacing(1),
+    borderBottom: "2px solid transparent",
+    borderColor: isActive ? theme.palette.primary.main : "transparent",
+  };
+});
 
 const DesktopMenu = () => {
   const pathname = usePathname();
-
-  const isHomePage = pathname === "/";
-  const isRankingPage = pathname === "/ranking";
-  const isCategoryPage = pathname === "/categories";
 
   return (
     <Box component="nav" width="100%">
@@ -57,28 +51,19 @@ const DesktopMenu = () => {
               />
             </Box>
           </NextLink>
-          <Box component="div" display="flex" gap={5}>
-            <Link
-              href="/"
-              component={NextLink}
-              sx={isHomePage ? sxActiveLink : sxLink}
-            >
+          <Box component="div" display="flex" gap={2}>
+            <StyledLink href="/" isActive={pathname === "/"}>
               <MovieCreationIcon /> <span>Movies</span>
-            </Link>
-            <Link
-              href="/ranking"
-              component={NextLink}
-              sx={isRankingPage ? sxActiveLink : sxLink}
-            >
+            </StyledLink>
+            <StyledLink href="/ranking" isActive={pathname === "/ranking"}>
               <StarRateIcon /> <span>Top rated</span>
-            </Link>
-            <Link
+            </StyledLink>
+            <StyledLink
               href="/categories"
-              component={NextLink}
-              sx={isCategoryPage ? sxActiveLink : sxLink}
+              isActive={pathname === "/categories"}
             >
               <CategoryIcon /> <span>Categories</span>
-            </Link>
+            </StyledLink>
           </Box>
         </Box>
       </Container>
