@@ -7,6 +7,7 @@ import type { ReactNode } from "react";
 
 export const metadata: Metadata = {
   title: "URmovies | Home",
+  icons: "./icon.svg",
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {

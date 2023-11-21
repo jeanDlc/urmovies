@@ -49,7 +49,7 @@ const MenuDesktop = () => {
           <NextLink href="/">
             <Box component="h1" lineHeight={0} marginY={0}>
               <Image
-                src="/logoPrincipal.svg"
+                src="/logo.svg"
                 alt="URmovies"
                 width={300}
                 height={80}

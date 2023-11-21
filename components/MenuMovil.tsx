@@ -45,7 +45,7 @@ const MenuMovil = () => {
         <Box lineHeight={0} component="h1" marginY={0}>
           <Link href="/">
             <Image
-              src="/logoPrincipal.svg"
+              src="/logo.svg"
               alt="URmovies"
               width={180}
               height={80}
