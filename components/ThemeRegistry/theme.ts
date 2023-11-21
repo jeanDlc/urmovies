@@ -38,12 +38,14 @@ export const theme = createTheme({
       "@media (min-width:600px)": {
         fontSize: "4rem",
       },
+      fontWeight: 500,
     },
     h2: {
       fontSize: "2rem",
       "@media (min-width:600px)": {
         fontSize: "3rem",
       },
+      fontWeight: 400,
     },
   },
   components: {
