@@ -54,3 +54,35 @@ export const getCategories = async () => {
 
   return data.genres as Category[];
 };
+
+export const searchMovie = async ({ query }: { query: string }) => {
+  const url = Api.buildRequestUrl({
+    path: "/search/movie",
+    params: { query, include_adult: "false" },
+  });
+
+  const res = await fetch(url);
+
+  const data = await res.json();
+
+  return data.results as Movie[];
+};
+
+export const getMovieById = async (id: string) => {
+  const url = Api.buildRequestUrl({
+    path: `/movie/${id}`,
+  });
+
+  const res = await fetch(url);
+
+  if (!res.ok) {
+    if (res.status === 404) {
+      throw new Error(`Couldn't find a movie with ID ${id}`);
+    }
+
+    throw new Error("Unexpected error");
+  }
+  const movie: Movie = await res.json();
+
+  return movie;
+};
