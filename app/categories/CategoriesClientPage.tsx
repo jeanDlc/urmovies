@@ -89,7 +89,6 @@ const CategoriesClientPage = ({ categories }: { categories: Category[] }) => {
                 onClick={searchByCategory}
                 fullWidth={true}
                 size="large"
-                variant="contained"
                 endIcon={<SearchIcon />}
                 disabled={isLoading}
               >
@@ -102,7 +101,6 @@ const CategoriesClientPage = ({ categories }: { categories: Category[] }) => {
                 color="secondary"
                 fullWidth={true}
                 size="large"
-                variant="contained"
                 endIcon={<ClearIcon />}
                 disabled={selectedCategories.size === 0}
               >

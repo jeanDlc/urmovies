@@ -28,7 +28,6 @@ const NotFoundPage = () => {
           <Button
             LinkComponent={Link}
             href="/"
-            variant="contained"
             color="secondary"
             size="large"
             sx={{ mt: 2 }}
