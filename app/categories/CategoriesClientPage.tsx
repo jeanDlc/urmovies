@@ -114,7 +114,7 @@ const CategoriesClientPage = () => {
           </Grid>
         </Grid>
         <Grid container mt={2}>
-          <Grid xs={12}>
+          <Grid item xs={12}>
             <FormGroup
               sx={{
                 display: "grid",
