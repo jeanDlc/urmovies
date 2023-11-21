@@ -10,30 +10,26 @@ import Checkbox from "@mui/material/Checkbox";
 import CircularProgress from "@mui/material/CircularProgress";
 import SearchIcon from "@mui/icons-material/Search";
 import ClearIcon from "@mui/icons-material/Clear";
-
-import useCategories from "@/hooks/useCategories";
 import Movie from "@/components/Movie";
 
 import type { ChangeEvent } from "react";
 import type { Category, Movie as IMovie } from "@/types";
 
-const CategoriesClientPage = () => {
-  const { categories } = useCategories();
+const CategoriesClientPage = ({ categories }: { categories: Category[] }) => {
+  const theme = useTheme();
 
-  let theme = useTheme();
-
-  const [categoryIdList, setCategoryIdList] = useState(
+  const [selectedCategories, setSelectedCategories] = useState(
     new Set<Category["id"]>(),
   );
 
-  const [movieList, setMovieList] = useState<IMovie[]>([]);
+  const [moviesResult, setMoviesResult] = useState<IMovie[]>([]);
 
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const [message, setMessage] = useState("");
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const categoryIdListCopy = new Set(categoryIdList);
+    const categoryIdListCopy = new Set(selectedCategories);
 
     const id = Number(event.target.id);
 
@@ -43,7 +39,7 @@ const CategoriesClientPage = () => {
       categoryIdListCopy.delete(id);
     }
 
-    setCategoryIdList(categoryIdListCopy);
+    setSelectedCategories(categoryIdListCopy);
   };
 
   const searchByCategory = async () => {
@@ -51,12 +47,12 @@ const CategoriesClientPage = () => {
       setMessage("");
     }
 
-    setLoading(true);
+    setIsLoading(true);
 
     try {
       const params = new URLSearchParams();
 
-      params.append("categories", Array.from(categoryIdList).toString());
+      params.append("categories", Array.from(selectedCategories).toString());
 
       const res = await fetch(`/categories/api/search?${params.toString()}`);
 
@@ -65,11 +61,11 @@ const CategoriesClientPage = () => {
       if (data.length === 0) {
         setMessage("No results");
       }
-      setLoading(false);
+      setIsLoading(false);
 
-      setMovieList(data);
+      setMoviesResult(data);
     } catch (error) {
-      setLoading(false);
+      setIsLoading(false);
       setMessage("Error");
     }
   };
@@ -95,18 +91,20 @@ const CategoriesClientPage = () => {
                 size="large"
                 variant="contained"
                 endIcon={<SearchIcon />}
+                disabled={isLoading}
               >
                 Search
               </Button>
               <Button
                 onClick={() => {
-                  setCategoryIdList(new Set());
+                  setSelectedCategories(new Set());
                 }}
                 color="secondary"
                 fullWidth={true}
                 size="large"
                 variant="contained"
                 endIcon={<ClearIcon />}
+                disabled={selectedCategories.size === 0}
               >
                 Reset
               </Button>
@@ -132,7 +130,7 @@ const CategoriesClientPage = () => {
                       onChange={handleChange}
                       name={cat.name}
                       id={`${cat.id}`}
-                      checked={categoryIdList.has(cat.id)}
+                      checked={selectedCategories.has(cat.id)}
                     />
                   }
                   label={cat.name}
@@ -142,9 +140,9 @@ const CategoriesClientPage = () => {
           </Grid>
         </Grid>
       </Box>
-      {loading && (
+      {isLoading && (
         <Box textAlign="center" marginTop={20}>
-          <CircularProgress color="secondary" />
+          <CircularProgress />
         </Box>
       )}
 
@@ -158,9 +156,9 @@ const CategoriesClientPage = () => {
 
       <Box component="main" mt={10}>
         <Grid container spacing={3}>
-          {movieList.map((pelicula) => (
-            <Grid xs={12} md={6} lg={4} item key={pelicula.id}>
-              <Movie movie={pelicula} />
+          {moviesResult.map((movie) => (
+            <Grid xs={12} md={6} lg={4} item key={movie.id}>
+              <Movie movie={movie} />
             </Grid>
           ))}
         </Grid>
