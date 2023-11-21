@@ -1,4 +1,4 @@
-import { MONTH } from "@/constants/toMiliseconds";
+import { MONTH } from "@/constants";
 import { Api } from "@/services/buildRequestUrl";
 
 import type { Movie } from "@/types";
