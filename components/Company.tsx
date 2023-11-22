@@ -3,6 +3,7 @@ import Typography from "@mui/material/Typography";
 import Image from "next/image";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
+import buildImageUrl from "@/helpers/buildImageUrl";
 
 const Company = ({
   details,
@@ -11,7 +12,7 @@ const Company = ({
 }) => {
   const { logo_path, name } = details;
 
-  const urlImagen = `https://image.tmdb.org/t/p/original/${logo_path}`;
+  const urlImagen = buildImageUrl({ path: logo_path });
 
   return (
     <Box

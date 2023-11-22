@@ -7,6 +7,7 @@ import Company from "@/components/Company";
 import { getMovieById, getPopularMovies } from "@/services";
 import { MONTH } from "@/constants";
 import DesktopMovieImage from "./DesktopMovieImage";
+import buildImageUrl from "@/helpers/buildImageUrl";
 
 import type { Metadata } from "next";
 
@@ -42,9 +43,9 @@ const Movie = async ({ params }: { params: { id: string } }) => {
     vote_count,
   } = movie;
 
-  const imageUrl = `https://image.tmdb.org/t/p/original/${backdrop_path}`;
+  const imageUrl = buildImageUrl({ path: backdrop_path });
 
-  const posterImageUrl = `https://image.tmdb.org/t/p/original/${poster_path}`;
+  const posterImageUrl = buildImageUrl({ path: poster_path });
 
   return (
     <>
@@ -58,7 +59,7 @@ const Movie = async ({ params }: { params: { id: string } }) => {
         draggable={false}
         priority
       />
-      <Box height="90vh" marginTop={4}>
+      <Box sx={{ mt: { md: 4 }, minHeight: "90vh", mb: 1 }}>
         <Container>
           <Grid container spacing={3}>
             <DesktopMovieImage imageUrl={posterImageUrl} />
@@ -66,7 +67,6 @@ const Movie = async ({ params }: { params: { id: string } }) => {
               <Box
                 component="main"
                 overflow="auto"
-                maxHeight="80vh"
                 position="relative"
                 zIndex={3}
               >
@@ -74,12 +74,13 @@ const Movie = async ({ params }: { params: { id: string } }) => {
                   {title}
                 </Typography>
                 <Typography gutterBottom>{tagline}</Typography>
-                <Typography sx={{ mb: 4 }}>
-                  {`${new Date(release_date).getFullYear()} | ${genres
-                    .map((g) => g.name)
-                    .join(", ")} | ${status}`}
-                </Typography>
-
+                <Box sx={{ display: { xs: "none", md: "block" } }}>
+                  <Typography sx={{ mb: 4 }}>
+                    {`${new Date(release_date).getFullYear()} | ${genres
+                      .map((g) => g.name)
+                      .join(", ")} | ${status}`}
+                  </Typography>
+                </Box>
                 <Typography component="h3" variant={"h5"} gutterBottom>
                   Overview
                 </Typography>

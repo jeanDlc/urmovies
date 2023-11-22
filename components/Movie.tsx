@@ -7,6 +7,7 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardActionArea from "@mui/material/CardActionArea";
 import readMore from "@/helpers/readMore";
+import buildImageUrl from "@/helpers/buildImageUrl";
 
 import type { Movie as IMovie } from "@/types";
 
@@ -14,7 +15,7 @@ const Movie = ({ movie }: { movie: IMovie }) => {
   const { title, id, overview, poster_path, vote_average, release_date } =
     movie;
 
-  const imageUrl = `https://image.tmdb.org/t/p/original${poster_path}`;
+  const imageUrl = buildImageUrl({ path: poster_path });
 
   return (
     <Card>
