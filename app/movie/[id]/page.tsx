@@ -7,9 +7,9 @@ import Company from "@/components/Company";
 import { getMovieById, getPopularMovies } from "@/services";
 import { MONTH } from "@/constants";
 import DesktopMovieImage from "./DesktopMovieImage";
+import buildImageUrl from "@/helpers/buildImageUrl";
 
 import type { Metadata } from "next";
-import DesktopWrapper from "@/components/DesktopWrapper";
 
 export const metadata: Metadata = {
   title: "URmovies | Page",
@@ -43,9 +43,9 @@ const Movie = async ({ params }: { params: { id: string } }) => {
     vote_count,
   } = movie;
 
-  const imageUrl = `https://image.tmdb.org/t/p/original/${backdrop_path}`;
+  const imageUrl = buildImageUrl({ path: backdrop_path });
 
-  const posterImageUrl = `https://image.tmdb.org/t/p/original/${poster_path}`;
+  const posterImageUrl = buildImageUrl({ path: poster_path });
 
   return (
     <>
