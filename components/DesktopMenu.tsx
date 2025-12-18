@@ -8,7 +8,7 @@ import StarRateIcon from "@mui/icons-material/StarRate";
 import { usePathname } from "next/navigation";
 import { styled } from "@mui/material/styles";
 
-const StyledLink = styled(NextLink)<{ isActive: boolean }>(({
+const StyledLink = styled(NextLink)<{ $active: boolean }>(({
   isActive,
   theme,
 }) => {
@@ -52,15 +52,15 @@ const DesktopMenu = () => {
             </Box>
           </NextLink>
           <Box component="div" display="flex" gap={2}>
-            <StyledLink href="/" isActive={pathname === "/"}>
+            <StyledLink href="/" >
               <MovieCreationIcon /> <span>Movies</span>
             </StyledLink>
-            <StyledLink href="/ranking" isActive={pathname === "/ranking"}>
+            <StyledLink href="/ranking" >
               <StarRateIcon /> <span>Top rated</span>
             </StyledLink>
             <StyledLink
               href="/categories"
-              isActive={pathname === "/categories"}
+             
             >
               <CategoryIcon /> <span>Categories</span>
             </StyledLink>

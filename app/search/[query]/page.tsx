@@ -13,11 +13,12 @@ export const metadata: Metadata = {
   title: "URmovies | Search",
 };
 
-export default async function Search({
-  params,
-}: {
-  params: { query: string };
-}) {
+export default async function Search(
+  props: {
+    params: Promise<{ query: string }>;
+  }
+) {
+  const params = await props.params;
   const query = decodeURIComponent(params.query);
 
   return (

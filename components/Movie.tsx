@@ -19,49 +19,51 @@ const Movie = ({ movie }: { movie: IMovie }) => {
 
   return (
     <Card>
-      <CardActionArea LinkComponent={Link} href={`/movie/${id}`}>
-        <Box
-          sx={{
-            width: "100%",
-            position: "relative",
-            height: "450px",
-            marginBottom: 1.1,
-          }}
-        >
-          <Image
-            src={imageUrl}
-            alt="Movie Photo"
-            fill
-            style={{ objectFit: "cover" }}
-          />
-        </Box>
-        <CardContent>
+      <Link href={`/movie/${id}`} passHref legacyBehavior>
+        <CardActionArea href={`/movie/${id}`}>
           <Box
-            display="flex"
-            gap={1}
-            alignItems={"center"}
-            justifyContent={"space-between"}
-            mb={1}
+            sx={{
+              width: "100%",
+              position: "relative",
+              height: "450px",
+              marginBottom: 1.1,
+            }}
           >
-            <Typography variant="h6" component="h3">
-              {title}
-            </Typography>
-            <Score score={vote_average} />
+            <Image
+              src={imageUrl}
+              alt="Movie Photo"
+              fill
+              style={{ objectFit: "cover" }}
+            />
           </Box>
-
-          <Typography variant="body2" color="text.secondary" gutterBottom>
-            {readMore(overview, 20)}
-          </Typography>
-
-          <Box textAlign="end">
-            {release_date && (
-              <Typography variant="caption">
-                {new Date(release_date).getFullYear()}{" "}
+          <CardContent>
+            <Box
+              display="flex"
+              gap={1}
+              alignItems={"center"}
+              justifyContent={"space-between"}
+              mb={1}
+            >
+              <Typography variant="h6" component="h3">
+                {title}
               </Typography>
-            )}
-          </Box>
-        </CardContent>
-      </CardActionArea>
+              <Score score={vote_average} />
+            </Box>
+
+            <Typography variant="body2" color="text.secondary" gutterBottom>
+              {readMore(overview, 20)}
+            </Typography>
+
+            <Box textAlign="end">
+              {release_date && (
+                <Typography variant="caption">
+                  {new Date(release_date).getFullYear()}{" "}
+                </Typography>
+              )}
+            </Box>
+          </CardContent>
+        </CardActionArea>
+      </Link>
     </Card>
   );
 };
