@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "eslint ."
   },
   "dependencies": {
     "@emotion/cache": "^11.11.0",
@@ -15,19 +15,23 @@
     "@mui/icons-material": "^5.14.18",
     "@mui/material": "^5.14.18",
     "install": "^0.13.0",
-    "next": "14.0.3",
+    "next": "16.0.10",
     "npm": "^10.2.4",
-    "react": "^18",
-    "react-dom": "^18"
+    "react": "19.2.3",
+    "react-dom": "19.2.3"
   },
   "devDependencies": {
     "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
-    "eslint": "^8",
-    "eslint-config-next": "14.0.3",
+    "@types/react": "19.2.7",
+    "@types/react-dom": "19.2.3",
+    "eslint": "^9.39.2",
+    "eslint-config-next": "16.0.10",
     "eslint-config-prettier": "^9.0.0",
     "prettier": "^3.1.0",
     "typescript": "^5"
+  },
+  "overrides": {
+    "@types/react": "19.2.7",
+    "@types/react-dom": "19.2.3"
   }
 }

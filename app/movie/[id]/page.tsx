@@ -23,7 +23,8 @@ export async function generateStaticParams() {
 
 export const revalidate = MONTH;
 
-const Movie = async ({ params }: { params: { id: string } }) => {
+const Movie = async (props: { params: Promise<{ id: string }> }) => {
+  const params = await props.params;
   const { id } = params;
 
   const movie = await getMovieById(id);
